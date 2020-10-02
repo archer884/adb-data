@@ -1,4 +1,3 @@
-use std::cmp::{Ord, Ordering};
 use geoutils::Location;
 use std::str::FromStr;
 
@@ -19,26 +18,6 @@ pub struct Airport {
     pub iata_code: String,
     pub local_code: String,
     pub coordinates: Coords,
-}
-
-impl Eq for Airport {}
-
-impl PartialEq for Airport {
-    fn eq(&self, other: &Self) -> bool {
-        self.ident == other.ident
-    }
-}
-
-impl Ord for Airport {
-    fn cmp(&self, other: &Self) -> Ordering {
-        self.ident.cmp(&other.ident)
-    }
-}
-
-impl PartialOrd for Airport {
-    fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
-        Some(self.ident.cmp(&other.ident))
-    }
 }
 
 #[cfg(feature = "aotload")]
