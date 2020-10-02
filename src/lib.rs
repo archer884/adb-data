@@ -9,7 +9,7 @@ pub struct Airport {
     pub ident: String,
     pub kind: String,
     pub name: String,
-    pub elevation_ft: i32,
+    pub elevation_ft: Option<i32>,
     pub continent: String,
     pub iso_country: String,
     pub iso_region: String,
@@ -20,6 +20,22 @@ pub struct Airport {
     pub coordinates: Coords,
 }
 
+#[derive(Debug)]
+pub struct AotAirport {
+    pub ident: &'static str,
+    pub kind: &'static str,
+    pub name: &'static str,
+    pub elevation_ft: Option<i32>,
+    pub continent: &'static str,
+    pub iso_country: &'static str,
+    pub iso_region: &'static str,
+    pub municipality: &'static str,
+    pub gps_code: &'static str,
+    pub iata_code: &'static str,
+    pub local_code: &'static str,
+    pub coordinates: Coords,
+}
+
 #[cfg(feature = "aotload")]
 #[derive(Clone, Debug, Deserialize)]
 struct AirportTemplate {
@@ -27,7 +43,7 @@ struct AirportTemplate {
     #[serde(rename = "type")]
     kind: String,
     name: String,
-    elevation_ft: i32,
+    elevation_ft: Option<i32>,
     continent: String,
     iso_country: String,
     iso_region: String,
@@ -78,8 +94,8 @@ impl<'de> Deserialize<'de> for Airport {
 
 #[derive(Clone, Debug)]
 pub struct Coords {
-    latitude: f64,
-    longitude: f64,
+    pub latitude: f64,
+    pub longitude: f64,
 }
 
 impl Coords {
